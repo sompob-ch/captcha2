@@ -7,7 +7,7 @@ public class Captcha {
     private int operator;
     private int rightOperand;
 
-
+    private String listOperator[] = {"","+","-","*","/"};
 
     public Captcha(int pattern, int leftOperand, int operator, int rightOperand) {
         this.pattern = pattern;
@@ -50,10 +50,26 @@ public class Captcha {
 
     @Override
     public String toString() {
-        if(this.getLeftOperand() == 1){
-            return "One + 1";
-        }
-        return "One + 1";
+        return this.getLeft()+" "+this.getOperators()+" "+this.getRight();
     }
 
+    public String getLeft() {
+        if(this.getPattern() == 1){
+            return new StringOperand(this.getLeftOperand()).getOperand();
+        } else {
+            return new NumberOperand(this.getLeftOperand()).getOperand();
+        }
+    }
+
+    public String getRight() {
+        if(this.getPattern() == 1){
+            return new NumberOperand(this.getRightOperand()).getOperand();
+        } else {
+            return new StringOperand(this.getRightOperand()).getOperand();
+        }
+    }
+
+    public String getOperators(){
+        return this.listOperator[this.getOperator()];
+    }
 }
